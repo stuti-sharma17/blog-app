@@ -1,0 +1,60 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+{% block title %}Khayal - A World of Thoughts{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="text-center py-5" style="background-color: #fef6e4;">
+  <h1 class="display-4 fw-bold text-primary">Welcome to <span style="color:#6a4c93">Khayal</span></h1>
+  <p class="lead text-muted">A soothing space to express, explore, and embrace your thoughts. ✨</p>
+  <img src="{% static 'images/thoughts.png' %}" class="img-fluid mt-3" alt="Khayal Illustration" style="max-height: 300px;">
+</section>
+
+<!-- Carousel Section -->
+<div id="thoughtCarousel" class="carousel slide my-5" data-bs-ride="carousel">
+  <div class="carousel-inner">
+    <div class="carousel-item active text-center p-5" style="background-color: #e0f7fa;">
+      <h2 class="text-secondary">"Every idea starts with a single thought..."</h2>
+      <img src="{% static 'images/idea.png' %}" class="d-block mx-auto mt-4" alt="Idea" style="max-height: 200px;">
+    </div>
+    <div class="carousel-item text-center p-5" style="background-color: #fce4ec;">
+      <h2 class="text-secondary">"Let your mind wander, let your words fly."</h2>
+      <img src="{% static 'images/writing.png' %}" class="d-block mx-auto mt-4" alt="Writing" style="max-height: 200px;">
+    </div>
+    <div class="carousel-item text-center p-5" style="background-color: #ede7f6;">
+      <h2 class="text-secondary">"Khayal – where your thoughts matter."</h2>
+      <img src="{% static 'images/community.png' %}" class="d-block mx-auto mt-4" alt="Community" style="max-height: 200px;">
+    </div>
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#thoughtCarousel" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon"></span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#thoughtCarousel" data-bs-slide="next">
+    <span class="carousel-control-next-icon"></span>
+  </button>
+</div>
+
+<!-- About Section -->
+<section class="row text-center py-5" style="background-color: #e8f5e9;">
+  <div class="col-md-6 mb-4">
+    <h3 class="fw-bold text-success">Why Khayal?</h3>
+    <p class="text-muted">In a fast world, your thoughts need a moment of pause. Khayal gives you that tranquil space to reflect, write, and share.</p>
+  </div>
+  <div class="col-md-6">
+    <h3 class="fw-bold text-success">Made with 💜 for Creators</h3>
+    <p class="text-muted">Whether it's poetry, journaling, or random thoughts – this is your space to be real, raw, and mindful.</p>
+  </div>
+</section>
+
+<!-- Call to Action -->
+<section class="text-center py-5" style="background-color: #f3e5f5;">
+  <h3 class="mb-4 text-purple">Join the Khayal Community</h3>
+  {% if not user.is_authenticated %}
+    <a href="{% url 'register' %}" class="btn btn-outline-primary me-3">Register</a>
+    <a href="{% url 'login' %}" class="btn btn-success">Login</a>
+  {% else %}
+    <a href="{% url 'tweet_list' %}" class="btn btn-primary">Go to Tweets</a>
+  {% endif %}
+</section>
+{% endblock %}

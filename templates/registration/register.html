@@ -1,10 +1,138 @@
 {% extends "layout.html" %}
+{% block title %}Register | Khayal{% endblock %}
 {% block content %}
-<h2>Register Form</h2>
-<form  method="post">
-    {% csrf_token %}
-    {{form.as_p}}
-    <button class="btn btn-primary">Register</button>
-</form>
-<p>Already have an account? <a href="{% url 'login'%}">Login Here.</a></p>
+{% load static%}
+<link rel="stylesheet" href="{% static 'css/registration.css' %}">
+
+<div class="card-register">
+  <div class="shapes">
+    <div class="shape shape-1"></div>
+    <div class="shape shape-2"></div>
+    <div class="shape shape-3"></div>
+    <div class="shape shape-4"></div>
+  </div>
+  
+  <div class="card-content">
+    <h2 class="register-title">Create Your <span class="brand">Khayal</span> Account</h2>
+    
+    <form method="post" novalidate id="register-form">
+      {% csrf_token %}
+      
+      <div class="form-group">
+        <span class="input-icon">👤</span>
+        <input type="text" class="form-control" id="id_username" name="username" placeholder="Username" required>
+        {% if form.username.errors %}
+          <div class="form-error">{{ form.username.errors|striptags }}</div>
+        {% endif %}
+      </div>
+      
+      <div class="form-group">
+        <span class="input-icon">✉️</span>
+        <input type="email" class="form-control" id="id_email" name="email" placeholder="Email Address" required>
+        {% if form.email.errors %}
+          <div class="form-error">{{ form.email.errors|striptags }}</div>
+        {% endif %}
+      </div>
+      
+      <div class="form-group password-wrapper">
+        <span class="input-icon">🔒</span>
+        <input type="password" class="form-control" id="id_password1" name="password1" placeholder="Password" required onkeyup="checkPasswordStrength(this.value)">
+        <span class="password-toggle" onclick="togglePassword('id_password1')">👁️</span>
+        <div class="password-strength">
+          <div class="password-strength-bar" id="password-strength-bar"></div>
+        </div>
+        {% if form.password1.errors %}
+          <div class="form-error">{{ form.password1.errors|striptags }}</div>
+        {% endif %}
+      </div>
+      
+      <div class="form-group password-wrapper">
+        <span class="input-icon">🔒</span>
+        <input type="password" class="form-control" id="id_password2" name="password2" placeholder="Confirm Password" required>
+        <span class="password-toggle" onclick="togglePassword('id_password2')">👁️</span>
+        {% if form.password2.errors %}
+          <div class="form-error">{{ form.password2.errors|striptags }}</div>
+        {% endif %}
+      </div>
+      
+      {% if form.non_field_errors %}
+        <div class="form-error">{{ form.non_field_errors|striptags }}</div>
+      {% endif %}
+      
+      <button type="submit" class="btn-register">Create Account</button>
+    </form>
+    
+    <p class="login-link">
+      Already have an account? <a href="{% url 'login' %}">Login here</a>
+    </p>
+  </div>
+</div>
+
+<script>
+  function togglePassword(fieldId) {
+    let passwordField = document.getElementById(fieldId);
+    if (passwordField.type === "password") {
+      passwordField.type = "text";
+    } else {
+      passwordField.type = "password";
+    }
+  }
+  
+  // Add focus animation
+  document.addEventListener('DOMContentLoaded', function() {
+    const inputs = document.querySelectorAll('.form-control');
+    
+    inputs.forEach(input => {
+      // Add animation when field gains focus
+      input.addEventListener('focus', function() {
+        this.classList.add('animate-field');
+        setTimeout(() => {
+          this.classList.remove('animate-field');
+        }, 1000);
+      });
+      
+      // Show sequential animation when page loads
+      setTimeout(() => {
+        input.classList.add('animate-field');
+        setTimeout(() => {
+          input.classList.remove('animate-field');
+        }, 1000);
+      }, Array.from(inputs).indexOf(input) * 200);
+    });
+  });
+  
+  // Simple password strength checker
+  function checkPasswordStrength(password) {
+    const strengthBar = document.getElementById('password-strength-bar');
+    const strength = calculatePasswordStrength(password);
+    
+    strengthBar.className = 'password-strength-bar';
+    
+    if (password.length === 0) {
+      strengthBar.style.width = '0%';
+    } else if (strength < 40) {
+      strengthBar.classList.add('strength-weak');
+    } else if (strength < 80) {
+      strengthBar.classList.add('strength-medium');
+    } else {
+      strengthBar.classList.add('strength-strong');
+    }
+  }
+  
+  function calculatePasswordStrength(password) {
+    let strength = 0;
+    
+    // Length contribution
+    if (password.length > 6) strength += 20;
+    if (password.length > 10) strength += 20;
+    
+    // Character type contribution
+    if (/[A-Z]/.test(password)) strength += 20;
+    if (/[a-z]/.test(password)) strength += 10;
+    if (/[0-9]/.test(password)) strength += 15;
+    if (/[^A-Za-z0-9]/.test(password)) strength += 15;
+    
+    return strength;
+  }
+</script>
 {% endblock %}

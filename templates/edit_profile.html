@@ -1,0 +1,40 @@
+{% extends "sidebar_layout.html" %}
+{% load static %}
+
+{% block title %}Edit Profile | Khayal{% endblock %}
+
+{% block sidebar_content %}
+<link rel="stylesheet" href="{% static 'css/profile.css' %}">
+
+<div class="profile-container">
+  <div class="profile-card">
+    <h2 class="edit-header">Edit Your Profile</h2>
+    <form method="post" enctype="multipart/form-data" class="edit-form">
+      {% csrf_token %}
+
+      <div class="form-group">
+        <label for="id_profile_picture">Profile Picture:</label>
+        {{ form.profile_picture }}
+      </div>
+
+      <div class="form-group">
+        <label for="id_bio">Bio:</label>
+        {{ form.bio }}
+      </div>
+
+      <div class="form-group">
+        <label for="id_location">Location:</label>
+        {{ form.location }}
+      </div>
+
+      <div class="form-group">
+        <label for="id_website">Website:</label>
+        {{ form.website }}
+      </div>
+
+      <button type="submit" class="btn-save">💾 Save Changes</button>
+      <a href="{% url 'profile' %}" class="btn-cancel">❌ Cancel</a>
+    </form>
+  </div>
+</div>
+{% endblock %}

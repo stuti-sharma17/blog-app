@@ -1,23 +1,68 @@
-{% extends "layout.html" %}
-{% block  title %}
-chai aur tweet
-{% endblock %}
+{% extends "sidebar_layout.html" %}
+{% load static %}
 
-{% block content %}
-<h1 class="text-center mt-4">
-    welcome
-</h1>
-<h2>
-    {% if form.instance.pk %}Edit tweet
-    {% else %}Create tweet
-    {% endif %}
-    <form method="post" enctype="multipart/form-data" class="form">
-        {% csrf_token %}
-        {{form.as_p}}
-        <button class="btn btn-warning" type="submit">Submit</button>
-    </form>
-    <a href="{% url 'tweet_list' %}"> 
-        Back to tweets list.
-    </a>
-</h2>
+{% block title %}Chai aur Tweet{% endblock %}
+
+{% block sidebar_content %}
+<link rel="stylesheet" href="{% static 'css/tweet_form.css' %}">
+
+<div class="tweet-form-container">
+    <div class="tweet-form-card">
+        <div class="bubbles">
+            <div class="bubble"></div>
+            <div class="bubble"></div>
+            <div class="bubble"></div>
+            <div class="bubble"></div>
+        </div>
+        
+        <h2 class="tweet-form-header">
+            {% if form.instance.pk %}Edit Tweet{% else %}Create Tweet{% endif %}
+        </h2>
+        
+        <form method="post" enctype="multipart/form-data" novalidate>
+            {% csrf_token %}
+            
+            {% for field in form %}
+            <p>
+                <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                {{ field }}
+                {% if field.errors %}
+                <ul class="errorlist">
+                    {% for error in field.errors %}
+                    <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+            </p>
+            {% endfor %}
+            
+            {% if form.non_field_errors %}
+            <ul class="errorlist">
+                {% for error in form.non_field_errors %}
+                <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+            
+            <button class="btn-submit" type="submit">Submit</button>
+        </form>
+        
+        <a href="{% url 'tweet_list' %}" class="back-link">Back to tweets list</a>
+    </div>
+</div>
+
+<script>
+  // Add focus animation
+  document.addEventListener('DOMContentLoaded', function() {
+    const inputs = document.querySelectorAll('input, textarea, select');
+    inputs.forEach(input => {
+      input.addEventListener('focus', function() {
+        this.parentElement.classList.add('input-focus');
+      });
+      input.addEventListener('blur', function() {
+        this.parentElement.classList.remove('input-focus');
+      });
+    });
+  });
+</script>
 {% endblock %}

@@ -7,3 +7,6 @@ class TweetConfig(AppConfig):
     
     def ready(self):
         import tweet.signals
+        
+    def ready(self):
+        import tweet.signals

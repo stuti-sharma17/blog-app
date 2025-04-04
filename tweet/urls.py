@@ -1,7 +1,7 @@
 from . import views
 from rest_framework.routers import DefaultRouter
 from django.urls import path, include
-from .views import TweetViewSet
+from .views import TweetViewSet, profile_view, edit_profile
 from rest_framework.authtoken.views import obtain_auth_token
 router=DefaultRouter()
 router.register(r'tweets', TweetViewSet)
@@ -14,4 +14,8 @@ urlpatterns = [
     path('register/', views.register, name='register'),
     path('api/',include(router.urls)),
     path('api/token/',obtain_auth_token, name='api_token_auth'),
+    path('my_tweets/',views.my_tweets, name="my_tweets"),
+    path('profile/', profile_view, name='profile'),
+    path('profile/edit/', edit_profile, name='edit_profile'),
+
 ]

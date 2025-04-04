@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/tweet_list.css' %}">
+
+<div class="main-container">
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <h2 class="sidebar-title">Khayal</h2>
+    <ul class="sidebar-links">
+      <li><a href="{% url 'tweet_list' %}">📬 Feed</a></li>
+      <li><a href="{% url 'tweet_create' %}">✍️ New Tweet</a></li>
+      <li><a href="{% url 'my_tweets' %}">📁 My Tweets</a></li>
+      <li><a href="{% url 'profile' %}">👤 Profile</a></li>
+      {% comment %} <li><a href="{% url 'logout' %}">🚪 Logout</a></li> {% endcomment %}
+    </ul>
+  </aside>
+
+  <!-- Dynamic content from child templates -->
+  <section class="tweet-section">
+    {% block sidebar_content %}{% endblock %}
+  </section>
+</div>
+{% endblock %}

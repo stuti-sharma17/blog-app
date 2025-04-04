@@ -1,0 +1,35 @@
+{% extends "sidebar_layout.html" %}
+{% load static %}
+
+{% block title %}My Profile | Khayal{% endblock %}
+
+{% block sidebar_content %}
+<link rel="stylesheet" href="{% static 'css/profile.css' %}">
+
+<div class="profile-container">
+  <div class="profile-card">
+    <div class="profile-header">
+      <img src="{{ user.userprofile.profile_picture.url }}" alt="Profile Picture" class="profile-image">
+      <h2 class="profile-username">@{{ user.username }}</h2>
+    </div>
+    
+    <div class="profile-info">
+      <p><strong>Email:</strong> {{ user.email }}</p>
+      <p><strong>Bio:</strong> {{ user.userprofile.bio }}</p>
+      <p><strong>Location:</strong> {{ user.userprofile.location }}</p>
+      <p><strong>Website:</strong>
+        {% if user.userprofile.website %}
+        <a href="{{ user.userprofile.website }}" target="_blank">{{ user.userprofile.website }}</a>
+        {% else %}
+        N/A
+        {% endif %}
+      </p>
+    </div>
+    
+    <div class="profile-actions">
+      <a href="{% url 'edit_profile' %}" class="btn-edit-profile">✏️ Edit Profile</a>
+      <a href="{% url 'tweet_list' %}" class="btn-back">🏡 Back to Tweets</a>
+    </div>
+  </div>
+</div>
+{% endblock %}

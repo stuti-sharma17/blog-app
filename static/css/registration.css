@@ -1,0 +1,366 @@
+
+  .card-register {
+    background: linear-gradient(135deg, #f8bbd0, #e1bee7, #d1c4e9);
+    border-radius: 20px;
+    box-shadow: 0 12px 30px rgba(186, 104, 200, 0.15);
+    padding: 2.5rem;
+    max-width: 500px;
+    margin: 0 auto;
+    position: relative;
+    overflow: hidden;
+    animation: cardFadeIn 0.8s ease-out;
+  }
+  
+  /* Animated background effect */
+  .card-register::before {
+    content: "";
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 60%);
+    transform: rotate(0deg);
+    animation: rotateGradient 15s linear infinite;
+    z-index: 0;
+  }
+  
+  .card-content {
+    position: relative;
+    z-index: 1;
+  }
+  
+  .register-title {
+    text-align: center;
+    margin-bottom: 2.5rem;
+    font-weight: bold;
+    position: relative;
+    display: inline-block;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  
+  .register-title::after {
+    content: "";
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    width: 0;
+    height: 3px;
+    background: linear-gradient(to right, #f06292, #ba68c8);
+    animation: lineExpand 1.5s ease-out forwards;
+    animation-delay: 0.5s;
+  }
+  
+  .register-title .brand {
+    color: #ba68c8;
+    position: relative;
+    display: inline-block;
+  }
+  
+  .register-title .brand::after {
+    content: "";
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: #ba68c8;
+    transform: scaleX(0);
+    transform-origin: bottom right;
+    transition: transform 0.3s ease-out;
+  }
+  
+  .card-register:hover .register-title .brand::after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+  }
+  
+  .form-group {
+    margin-bottom: 1.8rem;
+    position: relative;
+    transition: all 0.3s ease;
+  }
+  
+  .form-group:focus-within {
+    transform: translateY(-3px);
+  }
+  
+  .form-control {
+    border-radius: 12px;
+    padding: 0.85rem 1.2rem;
+    border: 1px solid rgba(186, 104, 200, 0.2);
+    width: 100%;
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(5px);
+    transition: all 0.3s ease;
+    padding-left: 45px;
+  }
+  
+  .form-control:focus {
+    border-color: #ba68c8;
+    box-shadow: 0 0 15px rgba(186, 104, 200, 0.3);
+    background: rgba(255, 255, 255, 0.9);
+    outline: none;
+  }
+  
+  .input-icon {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #9575cd;
+    transition: all 0.3s ease;
+  }
+  
+  .form-group:focus-within .input-icon {
+    color: #ba68c8;
+    transform: translateY(-50%) scale(1.1);
+  }
+  
+  .password-wrapper {
+    position: relative;
+  }
+  
+  .password-toggle {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #9575cd;
+    transition: all 0.2s ease;
+    z-index: 2;
+  }
+  
+  .password-toggle:hover {
+    color: #6a1b9a;
+    transform: translateY(-50%) scale(1.2);
+  }
+  
+  .btn-register {
+    background: linear-gradient(45deg, #f06292, #ba68c8, #9575cd);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    padding: 0.9rem 1rem;
+    width: 100%;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(186, 104, 200, 0.3);
+    z-index: 1;
+  }
+  
+  .btn-register::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, #9575cd, #ba68c8, #f06292);
+    transition: all 0.5s ease;
+    z-index: -1;
+  }
+  
+  .btn-register:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(186, 104, 200, 0.4);
+  }
+  
+  .btn-register:hover::before {
+    left: 0;
+  }
+  
+  .btn-register:active {
+    transform: translateY(1px);
+    box-shadow: 0 2px 10px rgba(186, 104, 200, 0.4);
+  }
+  
+  .login-link {
+    text-align: center;
+    margin-top: 2rem;
+    color: #666;
+    transition: all 0.3s ease;
+    opacity: 0;
+    animation: fadeIn 0.5s ease forwards;
+    animation-delay: 1s;
+  }
+  
+  .login-link a {
+    color: #ba68c8;
+    text-decoration: none;
+    font-weight: 500;
+    position: relative;
+    padding: 0 4px;
+    transition: all 0.3s ease;
+  }
+  
+  .login-link a::before {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background-color: #ba68c8;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.3s ease;
+  }
+  
+  .login-link a:hover {
+    color: #8e24aa;
+  }
+  
+  .login-link a:hover::before {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+  
+  /* Floating shapes animation */
+  .shapes {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    z-index: 0;
+    pointer-events: none;
+  }
+  
+  .shape {
+    position: absolute;
+    opacity: 0.2;
+    animation: floatShape 10s infinite ease-in-out;
+  }
+  
+  .shape-1 {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: #f06292;
+    left: 10%;
+    top: 20%;
+    animation-duration: 8s;
+    animation-delay: 0s;
+  }
+  
+  .shape-2 {
+    width: 40px;
+    height: 40px;
+    background: #ba68c8;
+    left: 70%;
+    top: 15%;
+    transform: rotate(45deg);
+    animation-duration: 9s;
+    animation-delay: 1s;
+  }
+  
+  .shape-3 {
+    width: 50px;
+    height: 50px;
+    background: #9575cd;
+    border-radius: 50%;
+    left: 80%;
+    top: 60%;
+    animation-duration: 7s;
+    animation-delay: 2s;
+  }
+  
+  .shape-4 {
+    width: 30px;
+    height: 30px;
+    background: #f8bbd0;
+    border-radius: 8px;
+    left: 20%;
+    top: 70%;
+    transform: rotate(30deg);
+    animation-duration: 11s;
+    animation-delay: 0.5s;
+  }
+  
+  /* Form field animations */
+  @keyframes pulseField {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.01); }
+    100% { transform: scale(1); }
+  }
+  
+  .animate-field {
+    animation: pulseField 1s ease-in-out;
+  }
+  
+  /* Progress indicator for password strength */
+  .password-strength {
+    height: 4px;
+    background: #e0e0e0;
+    margin-top: 5px;
+    border-radius: 2px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+  }
+  
+  .password-strength-bar {
+    height: 100%;
+    width: 0%;
+    border-radius: 2px;
+    transition: all 0.3s ease;
+  }
+  
+  .strength-weak { width: 33%; background: #f44336; }
+  .strength-medium { width: 66%; background: #ff9800; }
+  .strength-strong { width: 100%; background: #4caf50; }
+  
+  /* Keyframes */
+  @keyframes floatShape {
+    0% { transform: translate(0, 0) rotate(0deg); }
+    50% { transform: translate(15px, 15px) rotate(5deg); }
+    100% { transform: translate(0, 0) rotate(0deg); }
+  }
+  
+  @keyframes lineExpand {
+    0% { width: 0; }
+    100% { width: 100%; }
+  }
+  
+  @keyframes cardFadeIn {
+    0% {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  @keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+  }
+  
+  @keyframes rotateGradient {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  
+  /* Error styling */
+  .form-error {
+    color: #d32f2f;
+    font-size: 0.85rem;
+    margin-top: 5px;
+    margin-left: 10px;
+    animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
+  }
+  
+  @keyframes shake {
+    10%, 90% { transform: translate3d(-1px, 0, 0); }
+    20%, 80% { transform: translate3d(2px, 0, 0); }
+    30%, 50%, 70% { transform: translate3d(-2px, 0, 0); }
+    40%, 60% { transform: translate3d(2px, 0, 0); }
+  }

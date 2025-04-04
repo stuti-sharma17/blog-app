@@ -1,10 +1,73 @@
-{% extends "layout.html" %}
-{% block content %}
-<h2>Login Form</h2>
-<form  method="post">
-    {% csrf_token %}
-    {{form.as_p}}
-    <button class="btn btn-primary">Login</button>
-</form>
-<p>Don't have an account? <a href="{% url 'register' %}">Register here</a></p>
+{% extends "layout.html" %} 
+{% block title %}Login | Khayal{% endblock %}  
+{% block content %} 
+{%load static%}
+<link rel="stylesheet" href="{% static 'css/login.css' %}">
+<div class="card-login">
+  <div class="bubbles">
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+  </div>
+  
+  <div class="card-content">
+    <h2 class="login-title">Welcome back to <span class="brand">Khayal</span></h2>
+    
+    <form method="post" novalidate>
+      {% csrf_token %}
+      
+      <div class="form-group">
+        <span class="input-icon">👤</span>
+        <input type="text" class="form-control" id="id_username" name="username" placeholder="Username" required>
+        {% if form.username.errors %}
+          <div class="form-error">{{ form.username.errors|striptags }}</div>
+        {% endif %}
+      </div>
+      
+      <div class="form-group password-wrapper">
+        <span class="input-icon">🔒</span>
+        <input type="password" class="form-control" id="id_password" name="password" placeholder="Password" required>
+        <span class="password-toggle" onclick="togglePassword('id_password')">👁️</span>
+        {% if form.password.errors %}
+          <div class="form-error">{{ form.password.errors|striptags }}</div>
+        {% endif %}
+      </div>
+      
+      {% if form.non_field_errors %}
+        <div class="form-error">{{ form.non_field_errors|striptags }}</div>
+      {% endif %}
+      
+      <button type="submit" class="btn-login">Login</button>
+    </form>
+    
+    <p class="register-link">
+      Don't have an account? <a href="{% url 'register' %}">Register here</a>
+    </p>
+  </div>
+</div>
+
+<script>
+  function togglePassword(fieldId) {
+    let passwordField = document.getElementById(fieldId);
+    if (passwordField.type === "password") {
+      passwordField.type = "text";
+    } else {
+      passwordField.type = "password";
+    }
+  }
+  
+  // Add focus animation
+  document.addEventListener('DOMContentLoaded', function() {
+    const inputs = document.querySelectorAll('.form-control');
+    inputs.forEach(input => {
+      input.addEventListener('focus', function() {
+        this.parentElement.classList.add('input-focus');
+      });
+      input.addEventListener('blur', function() {
+        this.parentElement.classList.remove('input-focus');
+      });
+    });
+  });
+</script>
 {% endblock %}

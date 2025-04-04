@@ -1,0 +1,147 @@
+.profile-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 90vh;
+    background: linear-gradient(135deg, #f3e5f5, #e1bee7);
+    font-family: 'Segoe UI', sans-serif;
+    padding: 2rem;
+    animation: fadeIn 0.8s ease;
+  }
+  
+  .profile-card {
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 8px 20px rgba(186, 104, 200, 0.2);
+    padding: 2rem 2.5rem;
+    max-width: 550px;
+    width: 100%;
+    text-align: center;
+  }
+  
+  .profile-header {
+    margin-bottom: 2rem;
+  }
+  
+  .profile-image {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 4px solid #ba68c8;
+    margin-bottom: 1rem;
+  }
+  
+  .profile-username {
+    font-size: 1.8rem;
+    color: #6a1b9a;
+    font-weight: bold;
+  }
+  
+  .profile-info p {
+    font-size: 1.1rem;
+    color: #555;
+    margin: 0.8rem 0;
+  }
+  
+  .profile-info a {
+    color: #2196F3;
+    text-decoration: none;
+  }
+  
+  .profile-info a:hover {
+    text-decoration: underline;
+  }
+  
+  .profile-actions {
+    margin-top: 2rem;
+  }
+  
+  .btn-edit-profile,
+  .btn-back,
+  .btn-save,
+  .btn-cancel {
+    display: inline-block;
+    padding: 0.7rem 1.4rem;
+    margin: 0.5rem;
+    border-radius: 10px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .btn-edit-profile,
+  .btn-save {
+    background: linear-gradient(45deg, #64b5f6, #2196F3);
+    color: white;
+  }
+  
+  .btn-edit-profile:hover,
+  .btn-save:hover {
+    background: #42a5f5;
+  }
+  
+  .btn-back,
+  .btn-cancel {
+    background: #e0e0e0;
+    color: #333;
+  }
+  
+  .btn-back:hover,
+  .btn-cancel:hover {
+    background: #d5d5d5;
+  }
+  
+  /* Edit Form Styling */
+  .edit-header {
+    font-size: 1.6rem;
+    color: #6a1b9a;
+    margin-bottom: 2rem;
+  }
+  
+  .edit-form .form-group {
+    text-align: left;
+    margin-bottom: 1.5rem;
+  }
+  
+  .edit-form label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: #512da8;
+  }
+  
+  .edit-form input,
+  .edit-form textarea {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    background: #f9f9f9;
+    transition: all 0.3s ease;
+  }
+  
+  .edit-form input:focus,
+  .edit-form textarea:focus {
+    outline: none;
+    border-color: #ba68c8;
+    background: #fff;
+    box-shadow: 0 0 10px rgba(186, 104, 200, 0.2);
+  }
+  
+  /* Animations */
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .sidebar-links a.active-link {
+    background-color: #e0f7fa;
+    color: #0a3d62;
+    font-weight: bold;
+    border-left: 4px solid #00796b;
+    padding-left: 12px;
+    border-radius: 4px;
+  }
+  
