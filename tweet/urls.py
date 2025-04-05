@@ -1,7 +1,7 @@
 from . import views
 from rest_framework.routers import DefaultRouter
 from django.urls import path, include
-from .views import TweetViewSet, profile_view, edit_profile
+from .views import TweetViewSet, profile_view, edit_profile, ai_tweet_idea_view
 from rest_framework.authtoken.views import obtain_auth_token
 router=DefaultRouter()
 router.register(r'tweets', TweetViewSet)
@@ -19,5 +19,7 @@ urlpatterns = [
     path('profile/edit/', edit_profile, name='edit_profile'),
     path('search/', views.tweet_search, name='tweet_search'),
     path('<int:tweet_id>/detail/', views.tweet_detail, name='tweet_detail'),
+    path('ai_idea/', views.ai_tweet_idea_view, name='ai_tweet_idea'),
+
 
 ]

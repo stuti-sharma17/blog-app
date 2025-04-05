@@ -1,1 +1,24 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
 settings.py
+# Ignore virtual environments
+.venv/
+env/
+venv/
+
+# Django specific
+*.sqlite3
+db.sqlite3
+
+# VSCode or other IDE configs
+.vscode/
+.idea/
+
+# Media & uploads (optional – only if not needed in repo)
+media/
+
+
+# OS-specific
+.DS_Store
+Thumbs.db

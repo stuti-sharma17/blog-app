@@ -23,3 +23,14 @@ class UserProfileForm(forms.ModelForm):
     class Meta:
         model = UserProfile
         fields = ['bio', 'profile_picture', 'location', 'website']
+        
+# ai form field
+class AIPromptForm(forms.Form):
+    prompt = forms.CharField(
+        label='Generate The Khayal',
+        max_length=200,
+        widget=forms.TextInput(attrs={
+            'class': 'form-control rounded-pill',
+            'placeholder': 'e.g. Write a motivational quote...',
+        })
+    )

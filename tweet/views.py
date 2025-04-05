@@ -14,6 +14,9 @@ from django.db import IntegrityError
 from django.contrib import messages
 from django.db.models import Q
 from django.http import JsonResponse, Http404
+from .utils.ai_helper import generate_tweet_idea
+
+
 # Create your views here.
 def home(request):
     return render(request, 'home.html')
@@ -140,3 +143,23 @@ class TweetViewSet(viewsets.ModelViewSet):
     
     def perform_create(self, serializer):
         serializer.save(user=self.request.user) 
+
+# aiview
+from .forms import AIPromptForm
+from .utils.ai_helper import generate_tweet_idea
+@login_required
+def ai_tweet_idea_view(request):
+    generated_idea = None
+
+    if request.method == "POST":
+        form = AIPromptForm(request.POST)
+        if form.is_valid():
+            prompt = form.cleaned_data['prompt']
+            generated_idea = generate_tweet_idea(prompt)
+    else:
+        form = AIPromptForm()
+
+    return render(request, "ai_tweet_idea.html", {
+        'form': form,
+        'generated_idea': generated_idea
+    })
