@@ -1,0 +1,13 @@
+{%load static%}
+<link rel="stylesheet" href="{% static 'css/tweet_search_form.css' %}">
+
+<form method="get" action="{% url 'tweet_search' %}" class="tweet-search-form">
+  <input
+    type="text"
+    name="q"
+    class="search-input"
+    placeholder="Search what you like..💜 "
+    value="{{ query|default:'' }}"
+  >
+  <button type="submit" class="search-button">Search</button>
+</form>

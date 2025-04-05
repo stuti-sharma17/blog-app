@@ -1,25 +1,65 @@
-{% extends "layout.html" %}
-{% load static %}
+{% extends "layout.html" %} 
+{% load static %}  
 
-{% block content %}
-<link rel="stylesheet" href="{% static 'css/tweet_list.css' %}">
+{% block content %} 
+<link rel="stylesheet" href="{% static 'css/tweet_list.css' %}">  
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384..." crossorigin="anonymous"></script>
 
-<div class="main-container">
-  <!-- Sidebar -->
-  <aside class="sidebar">
-    <h2 class="sidebar-title">Khayal</h2>
-    <ul class="sidebar-links">
-      <li><a href="{% url 'tweet_list' %}">📬 Feed</a></li>
-      <li><a href="{% url 'tweet_create' %}">✍️ New Tweet</a></li>
-      <li><a href="{% url 'my_tweets' %}">📁 My Tweets</a></li>
-      <li><a href="{% url 'profile' %}">👤 Profile</a></li>
-      {% comment %} <li><a href="{% url 'logout' %}">🚪 Logout</a></li> {% endcomment %}
-    </ul>
-  </aside>
+<div class="main-container">   
+  <!-- Sidebar -->   
+  <aside class="sidebar">     
+    <h2 class="sidebar-title">Khayal</h2>     
+    <ul class="sidebar-links">       
+      <li><a href="{% url 'tweet_list' %}">📬 Feed</a></li>       
+      <li><a href="{% url 'tweet_create' %}">✍️ New Tweet</a></li>       
+      <li><a href="{% url 'my_tweets' %}">📁 My Tweets</a></li>       
+      <li><a href="{% url 'profile' %}">👤 Profile</a></li>       
+      {% comment %} <li><a href="{% url 'logout' %}">🚪 Logout</a></li> {% endcomment %}     
+    </ul>   
+  </aside>    
+  
+  <!-- Dynamic content from child templates -->   
+  <section class="tweet-section">     
+    {% block sidebar_content %}{% endblock %}   
+  </section> 
+</div> 
+{% block scripts %}
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('button[data-bs-toggle="modal"]').forEach(button => {
+      button.addEventListener('click', function () {
+        console.log("View button clicked for tweet ID:", this.dataset.tweetId);  // <- Keep this!
+        const tweetId = this.dataset.tweetId;
+        const modalBody = document.getElementById('modalTweetContent');
+        modalBody.innerHTML = `<p class="text-muted">Loading...</p>`;
+        fetch(`/tweet/${tweetId}/detail/`, {
+          method: 'GET',
+          headers: {
+            'X-Requested-With': 'XMLHttpRequest'
+          }
+        })
+        .then(response => {
+          if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+          return response.json();
+        })
+        .then(data => {
+          modalBody.innerHTML = data.error ? `<p>${data.error}</p>` : `
+            ${data.photo ? `<img src="${data.photo}" alt="Tweet Photo" style="width:100%; height:auto; border-radius:8px; margin-bottom:1rem;">` : ''}
+            <h5>@${data.username || 'Unknown'}</h5>
+      <h6> Title: ${data.title || 'No title available'}</h6>
+      <p>${data.text || 'No text provided.'}</p>
+      ${data.photo_url ? `<img src="${data.photo_url}" class="img-fluid rounded my-3" />` : ''}
+      <small class="text-muted">${data.created_At || 'Date not available'}</small>
+          `;
+        })
+        .catch(error => {
+          modalBody.innerHTML = `<p>Error loading tweet details: ${error.message}</p>`;
+          console.error('Fetch error:', error);
+        });
+      });
+    });
+  });
+</script>
+{% endblock %}
 
-  <!-- Dynamic content from child templates -->
-  <section class="tweet-section">
-    {% block sidebar_content %}{% endblock %}
-  </section>
-</div>
 {% endblock %}

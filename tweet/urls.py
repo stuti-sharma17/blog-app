@@ -17,5 +17,7 @@ urlpatterns = [
     path('my_tweets/',views.my_tweets, name="my_tweets"),
     path('profile/', profile_view, name='profile'),
     path('profile/edit/', edit_profile, name='edit_profile'),
+    path('search/', views.tweet_search, name='tweet_search'),
+    path('<int:tweet_id>/detail/', views.tweet_detail, name='tweet_detail'),
 
 ]

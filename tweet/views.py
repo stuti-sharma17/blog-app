@@ -12,7 +12,8 @@ from rest_framework.response import Response
 from rest_framework import status
 from django.db import IntegrityError
 from django.contrib import messages
-
+from django.db.models import Q
+from django.http import JsonResponse, Http404
 # Create your views here.
 def home(request):
     return render(request, 'home.html')
@@ -21,7 +22,10 @@ def index(request):
 @login_required
 def tweet_list(request):
     tweets = Tweet.objects.all().order_by('-created_At')
-    return render(request, 'tweet_list.html', {'tweets': tweets})
+    return render(request, 'tweet_list.html', {
+        'tweets': tweets,
+        'show_actions': False  # Don't show Edit/Delete here
+    })
 
 @login_required
 def tweet_create(request):
@@ -61,11 +65,38 @@ def tweet_delete(request, tweet_id):
 @login_required
 def my_tweets(request):
     tweets = Tweet.objects.filter(user=request.user).order_by('-created_At')
-    return render(request, 'my_tweets.html', {'tweets': tweets})
+    return render(request, 'my_tweets.html', {
+        'tweets': tweets,
+        'show_actions': True  # Show Edit/Delete here
+    })
+#search view
+@login_required
+def tweet_search(request):
+    query = request.GET.get('q')
+    tweets = Tweet.objects.all().order_by('-created_At')
 
+    if query:
+        tweets = tweets.filter(Q(title__icontains=query) |Q(text__icontains=query) )
 
-#register view        
+    return render(request, 'tweet_list.html', {'tweets': tweets, 'query': query})       
 
+def tweet_detail(request, tweet_id):
+    if request.method == 'GET' and request.headers.get('x-requested-with') == 'XMLHttpRequest':
+        try:
+            tweet = Tweet.objects.get(id=tweet_id)
+            data = {
+                'username': tweet.user.username,
+                'title': tweet.title,
+                'text': tweet.text,
+                'photo': tweet.photo.url if tweet.photo else '',
+                'created_At': tweet.created_At.strftime('%b %d, %Y'),
+            }
+            return JsonResponse(data)
+        except Tweet.DoesNotExist:
+            raise Http404("Tweet does not exist.")
+    
+    return JsonResponse({'error': 'Invalid request'}, status=400)
+    
 def register(request):
     if request.method == 'POST':
         form = UserRegistrationForm(request.POST)
