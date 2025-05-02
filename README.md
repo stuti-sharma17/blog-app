@@ -1,4 +1,5 @@
 # Khayal – Full-Stack Blog Platform 📝✨
+Checkout: [blog-app-q3pg.onrender.com](https://blog-app-q3pg.onrender.com/)
 
 **Khayal** is a full-fledged full-stack blog application built with Django, Django REST Framework, and PostgreSQL. It supports AI-based tweet suggestions, full CRUD operations, secure authentication, and a polished UI using Bootstrap.
 
