@@ -1,10 +1,9 @@
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
-settings.py
 # Ignore virtual environments
 .venv/
-env/
+.env
 venv/
 
 # Django specific
